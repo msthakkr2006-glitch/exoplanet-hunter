@@ -1,0 +1,30 @@
+{% extends 'interior.html' %}
+{% from 'icons.html' import icon %}
+{% block title %}Explore the Kepler Catalog — Exoplanet Hunter{% endblock %}
+{% block page_content %}
+<header class="page-heading"><p class="eyebrow">THE ARCHIVE / EXPLORE</p><h1>Explore the Kepler Catalog</h1><p>Search and explore NASA’s Kepler Objects of Interest — astronomical signals investigated for potential exoplanets.</p></header>
+<div class="explorer-layout">
+  <section class="panel catalog-panel" aria-labelledby="catalog-heading">
+    <div class="panel-heading"><div><p class="eyebrow">A RECORD OF DISTANT LIGHT</p><h2 id="catalog-heading">Observations</h2></div><span class="small-label">NASA KEPLER · KOI</span></div>
+    <form id="search-form" class="search-form" role="search"><label class="sr-only" for="catalog-search">Search Kepler observations</label><div class="search-input">{{ icon('search') }}<input id="catalog-search" name="q" type="search" maxlength="200" placeholder="KOI name, Kepler name, or host-star ID" autocomplete="off"></div><button class="button button-primary" type="submit">Search</button></form>
+    <div class="catalog-meta"><p id="catalog-status" role="status">Loading the archive…</p><button type="button" id="clear-search" class="text-button" hidden>Clear search</button></div>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Kepler observations table"><table class="catalog-table"><caption class="sr-only">NASA catalog observations. Select Details to inspect measurements.</caption><thead><tr><th scope="col">KOI identifier</th><th scope="col">Period <small>days</small></th><th scope="col">Radius <small>R⊕</small></th><th scope="col">SNR</th><th scope="col">NASA disposition</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead><tbody id="catalog-rows"></tbody></table></div>
+    <div id="catalog-empty" class="empty-state" hidden>{{ icon('search') }}<h3>No matching observations</h3><p>Try a KOI name such as K00752.01, a Kepler name, or a host-star ID.</p></div>
+    <div id="catalog-error" class="notice error" role="alert" hidden><p></p><button type="button" id="catalog-retry" class="text-button">Retry loading</button></div>
+    <nav class="pagination" aria-label="Catalog pagination"><button id="previous-page" class="button button-secondary" type="button" disabled>← Previous</button><span id="page-status">Page —</span><button id="next-page" class="button button-secondary" type="button" disabled>Next →</button></nav>
+    <p class="panel-footnote">Catalog order · Missing measurements are shown as —.</p>
+  </section>
+  <aside class="panel observation-panel" aria-label="Observation details" aria-busy="false">
+    <div class="panel-heading"><p class="eyebrow">AN OBSERVATION, UP CLOSE</p>{{ icon('orbit') }}</div>
+    <div id="detail-placeholder" class="empty-state"><h2 id="detail-heading">Select a signal</h2><p>Choose an observation to explore its measurements and catalog disposition.</p></div>
+    <div id="detail-error" class="notice error" role="alert" hidden><p></p><button id="detail-retry" type="button" class="text-button">Retry observation</button></div>
+    <div id="observation-detail" hidden>
+      <h2 id="object-name" class="object-name"></h2><p id="object-alias" class="object-alias"></p><span id="object-disposition" class="badge"></span>
+      <figure class="orbital-diagram"><svg viewBox="0 0 320 160" role="img" aria-label="Schematic orbit around a star"><ellipse cx="160" cy="80" rx="120" ry="45" transform="rotate(-15 160 80)"/><ellipse cx="160" cy="80" rx="88" ry="31" transform="rotate(-15 160 80)"/><circle class="diagram-star" cx="160" cy="80" r="14"/><circle class="diagram-planet" cx="267" cy="44" r="6"/><path d="M160 22v-5m0 126v-5M42 80h-5m246 0h-5"/></svg><figcaption>ORBITAL ILLUSTRATION · NOT TO SCALE</figcaption></figure>
+      <dl id="object-measurements" class="measurements"></dl>
+      <p id="object-missing" class="small-note"></p><a id="analyze-object" class="button button-primary wide" href="/predict">Analyze This Observation {{ icon('arrow') }}</a>
+      <p class="panel-footnote">NASA’s catalog disposition is independent of our model’s classification.</p>
+    </div>
+  </aside>
+</div>
+{% endblock %}

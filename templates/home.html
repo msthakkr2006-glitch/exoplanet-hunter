@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% from 'icons.html' import icon %}
+{% block content %}
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="hero-sky" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <div class="hero-content container">
+    <div class="hero-intro">
+      <p class="hero-kicker enter">{{ icon('spark') }} A WINDOW INTO DISTANT WORLDS</p>
+      <h1 class="enter" id="hero-title">Exoplanet <span>Hunter</span></h1>
+      <p class="hero-subtitle enter"><span></span>AI-POWERED CLASSIFICATION OF KEPLER EXOPLANET SIGNALS<span></span></p>
+      <p class="hero-description enter">Explore NASA’s Kepler observations, analyze planetary signals,<br class="desktop-break"> and classify potential exoplanet candidates using machine learning.</p>
+      <div class="button-group enter">
+        <a class="button button-primary" href="/explore">Explore Kepler Data {{ icon('arrow') }}</a>
+        <a class="button button-secondary" href="/predict">{{ icon('signal') }} Try Prediction</a>
+      </div>
+    </div>
+    <div class="feature-grid">
+      <a class="feature-card enter" href="/explore">
+        <span class="feature-icon">{{ icon('search') }}</span><span class="card-number">01</span>
+        <h2>Explore</h2><p>Browse and search NASA Kepler observations.</p><span class="card-link">Enter the archive {{ icon('arrow') }}</span>
+      </a>
+      <a class="feature-card enter" href="/predict">
+        <span class="feature-icon">{{ icon('signal') }}</span><span class="card-number">02</span>
+        <h2>Predict</h2><p>Classify astronomical observations using our trained machine-learning model.</p><span class="card-link">Follow the signal {{ icon('arrow') }}</span>
+      </a>
+      <a class="feature-card enter" href="/model">
+        <span class="feature-icon">{{ icon('chart') }}</span><span class="card-number">03</span>
+        <h2>Analyze</h2><p>Explore dataset statistics and model performance.</p><span class="card-link">Understand the science {{ icon('arrow') }}</span>
+      </a>
+    </div>
+    <a class="scroll-cue" href="#beyond"><span>SCROLL TO EXPLORE</span><span class="scroll-line"></span>{{ icon('down') }}</a>
+  </div>
+</section>
+
+<section class="beyond section container" id="beyond" aria-labelledby="beyond-title">
+  <div class="section-copy reveal">
+    <p class="eyebrow"><span class="section-number">01 /</span> A UNIVERSE OF POSSIBILITIES</p>
+    <h2 id="beyond-title">Beyond Our<br><em>Solar System.</em></h2>
+    <p>Thousands of worlds orbit distant stars. By studying subtle changes in starlight, astronomers can identify signals that may reveal planets beyond our Solar System.</p>
+    <div class="small-rule"></div>
+    <p class="quiet-copy">A small dip in light.<br>A whole new world of questions.</p>
+  </div>
+  <figure class="planet-scene reveal">
+    <div class="planet-orbit" aria-hidden="true"></div><div class="planet" aria-hidden="true"></div>
+    <span class="orbit-mark" aria-hidden="true">+</span>
+    <figcaption><span class="caption-line"></span>EXOPLANET SILHOUETTE · ARTIST’S ILLUSTRATION</figcaption>
+  </figure>
+</section>
+
+<section class="archive section" id="archive" aria-labelledby="archive-title" data-stats-url="{{ url_for('stats') }}">
+  <div class="archive-sky" aria-hidden="true"></div>
+  <div class="container">
+    <div class="section-heading reveal"><p class="eyebrow"><span class="section-number">02 /</span> REAL OBSERVATIONS. REMARKABLE POSSIBILITIES.</p><h2 id="archive-title">The Kepler Archive</h2><p>NASA’s Kepler mission transformed the search for worlds beyond our Solar System. Explore the observations that help us understand planetary systems across the galaxy.</p></div>
+    <div class="stats-grid reveal" aria-label="NASA Kepler catalog statistics" aria-busy="true">
+      <div class="stat"><span class="stat-value" data-stat="total_observations">—</span><span class="stat-label">Total observations</span><span class="stat-detail">Signals in the archive</span></div>
+      <div class="stat"><span class="stat-value" data-stat="confirmed">—</span><span class="stat-label">Confirmed</span><span class="stat-detail">NASA catalog disposition</span></div>
+      <div class="stat"><span class="stat-value" data-stat="candidate">—</span><span class="stat-label">Candidates</span><span class="stat-detail">Signals awaiting confirmation</span></div>
+      <div class="stat"><span class="stat-value" data-stat="false_positive">—</span><span class="stat-label">False positives</span><span class="stat-detail">Other explanations for the signal</span></div>
+    </div>
+    <div class="stats-feedback" aria-live="polite"><p id="stats-status">Loading the local Kepler catalog…</p><button id="retry-stats" class="text-button" type="button" hidden>Try again {{ icon('arrow') }}</button></div>
+    <noscript><p class="noscript-note">Enable JavaScript to load the latest catalog counts, or <a href="{{ url_for('stats') }}">view the catalog statistics as JSON</a>.</p></noscript>
+    <div class="section-action reveal"><a class="button button-secondary" href="/explore">Explore the Archive {{ icon('arrow') }}</a></div>
+  </div>
+</section>
+
+<section class="method section container" id="method" aria-labelledby="method-title">
+  <div class="section-heading reveal"><p class="eyebrow"><span class="section-number">03 /</span> THE SCIENCE BEHIND THE SIGNAL</p><h2 id="method-title">From Starlight<br>to <em>Classification</em></h2><p>Every observation tells a story. Our model looks for patterns in historical NASA data to help interpret it.</p></div>
+  <ol class="process-grid reveal">
+    <li><div class="process-icon">{{ icon('orbit') }}<span>01</span></div><h3>Kepler observations</h3><p>Subtle changes in the light of distant stars.</p></li>
+    <li><div class="process-icon">{{ icon('signal') }}<span>02</span></div><h3>Astronomical measurements</h3><p>Ten features describing each transit and its host star.</p></li>
+    <li><div class="process-icon">{{ icon('tree') }}<span>03</span></div><h3>Trained Random Forest</h3><p>Learned patterns, with missing values handled by the saved median imputer.</p></li>
+    <li><div class="process-icon">{{ icon('classify') }}<span>04</span></div><h3>A model classification</h3><p>Planet-like or False Positive. An interpretation, not a confirmation.</p></li>
+  </ol>
+  <p class="model-note reveal">{{ icon('spark') }} A model score reflects learned patterns. It is not a scientifically verified probability that a planet exists.</p>
+</section>
+
+<section class="invitation section" aria-labelledby="invitation-title">
+  <div class="invitation-orbit" aria-hidden="true"></div>
+  <div class="container reveal"><p class="eyebrow">CURIOSITY IS ONLY THE BEGINNING</p><h2 id="invitation-title">What lies <em>beyond?</em></h2><p>Explore the Kepler archive, investigate distant planetary signals,<br class="desktop-break"> and see machine learning in action.</p><div class="button-group"><a class="button button-primary" href="/explore">Explore Observations {{ icon('arrow') }}</a><a class="button button-secondary" href="/predict">Run a Prediction</a></div></div>
+</section>
+{% endblock %}

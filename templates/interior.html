@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block page_assets %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/interior.css') }}">
+<script src="{{ url_for('static', filename='js/interior.js') }}" defer></script>
+<script src="{{ url_for('static', filename='js/' ~ active_page ~ '.js') }}" defer></script>
+{% endblock %}
+{% block content %}
+<div class="interior-sky" aria-hidden="true"></div>
+<div class="page-shell container">
+  {% block page_content %}{% endblock %}
+  <noscript><p class="notice">Enable JavaScript for catalog browsing, predictions, and live statistics. The scientific background on these pages remains available below.</p></noscript>
+</div>
+{% endblock %}

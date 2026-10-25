@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05080d">
+  <meta name="description" content="Explore the science of distant worlds through NASA's Kepler observations and machine learning. Exoplanet Hunter: a journey from starlight to classification.">
+  <title>{% block title %}Exoplanet Hunter — A little closer to the unknown{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/orbit.svg') }}">
+  <link rel="preload" as="image" href="{{ url_for('static', filename='images/starfield.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}">
+  {% block page_assets %}<script src="{{ url_for('static', filename='js/home.js') }}" defer></script>{% endblock %}
+</head>
+<body{% if active_page %} class="interior-page" data-page="{{ active_page }}"{% endif %}>
+  {% from 'icons.html' import icon %}
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <div class="nav-shell container">
+      <a class="brand" href="{{ '/' if active_page else '#home' }}" aria-label="Exoplanet Hunter home">{{ icon('orbit') }}<span>EXOPLANET <strong>HUNTER</strong></span></a>
+      <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false"><span>Menu</span>{{ icon('menu') }}</button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        <a{% if not active_page %} class="active" aria-current="page"{% endif %} href="{{ '/' if active_page else '#home' }}">Home</a>
+        {% for page, label in [('explore','Explore'),('predict','Predict'),('model','Model'),('about','About')] %}
+        <a{% if active_page == page %} class="active" aria-current="page"{% endif %} href="{{ url_for('frontend.' ~ page) }}">{{ label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer container" id="project">
+    <div class="footer-top">
+      <a class="brand" href="{{ '/' if active_page else '#home' }}">{{ icon('orbit') }}<span>EXOPLANET <strong>HUNTER</strong></span></a>
+      <p>A little closer to the unknown.</p>
+      <a class="back-top" href="{{ '/' if active_page else '#home' }}">Back to the stars {{ icon('arrow-up') }}</a>
+    </div>
+    <div class="footer-bottom">
+      <p>An astronomy &amp; machine learning project.</p>
+      <p>Data: NASA Kepler / NASA Exoplanet Archive</p>
+    </div>
+    <p class="scientific-note">A study of patterns in historical observations. Model classifications are not discoveries or scientific confirmations of planets.</p>
+  </footer>
+  <dialog id="feature-preview" aria-labelledby="preview-title" aria-describedby="preview-description">
+    <button class="dialog-close" type="button" aria-label="Close preview notice">{{ icon('close') }}</button>
+    <span class="eyebrow">ON THE HORIZON</span>
+    <h2 id="preview-title">The next chapter.</h2>
+    <p id="preview-description">The prediction experience is coming next. For now, discover how Kepler observations become model classifications.</p>
+    <a class="button button-primary" href="#method" data-close-dialog>Discover the process {{ icon('arrow') }}</a>
+  </dialog>
+</body>
+</html>

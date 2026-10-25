@@ -1,0 +1,33 @@
+{% extends 'interior.html' %}
+{% from 'icons.html' import icon %}
+{% block title %}Predict Exoplanet Candidate — Exoplanet Hunter{% endblock %}
+{% block page_content %}
+<header class="page-heading"><p class="eyebrow">THE SIGNAL / PREDICT</p><h1>Predict Exoplanet Candidate</h1><p>Analyze astronomical measurements using our trained Random Forest model.</p></header>
+<div class="prediction-layout">
+  <section class="panel input-panel" aria-labelledby="input-heading">
+    <div class="panel-heading"><div><p class="eyebrow">TEN MEASUREMENTS. ONE OBSERVATION.</p><h2 id="input-heading">Read the starlight</h2></div>{{ icon('signal') }}</div>
+    <fieldset class="input-modes"><legend class="sr-only">Input source</legend><label><input type="radio" name="input-mode" value="manual" checked><span>Manual input</span></label><label><input type="radio" name="input-mode" value="catalog"><span>Kepler observation</span></label></fieldset>
+    <form id="observation-loader" class="search-form" hidden><label class="sr-only" for="observation-id">Kepler observation identifier</label><input id="observation-id" type="text" placeholder="KOI name, e.g. K00752.01" maxlength="200" required><button class="button button-secondary" type="submit">Load</button></form>
+    <p id="source-status" class="small-note" role="status">Enter measurements below. Leave unavailable values blank to use the saved median imputer.</p>
+    <div id="source-error" class="notice error" role="alert" hidden></div>
+    <div id="ambiguous-objects" class="object-choices" hidden aria-label="Choose a unique KOI observation"></div>
+    <form id="prediction-form" novalidate>
+      <div class="feature-form">
+      {% for name, label, unit, help, positive in feature_info %}
+        <div class="field"><label for="{{ name }}">{{ label }} <span>{{ unit }}</span></label><input id="{{ name }}" name="{{ name }}" type="number" step="any" min="0" inputmode="decimal" placeholder="—" data-positive="{{ 'true' if positive else 'false' }}" aria-describedby="help-{{ name }} error-{{ name }}"><small id="help-{{ name }}">{{ help }}</small><span class="field-error" id="error-{{ name }}"></span></div>
+      {% endfor %}
+      </div>
+      <div id="form-error" class="notice error" role="alert" hidden></div>
+      <div class="form-actions"><button id="classify-button" class="button button-primary" type="submit">Classify Observation {{ icon('arrow') }}</button><button id="clear-measurements" class="text-button" type="button">Clear measurements</button></div>
+      <p class="panel-footnote">Finite numbers only · Missing values use medians learned during training.</p>
+    </form>
+  </section>
+  <aside class="panel result-panel" aria-labelledby="result-heading" aria-busy="false">
+    <div class="panel-heading"><p class="eyebrow">PATTERNS, INTERPRETED</p><span class="small-label">RANDOM FOREST</span></div>
+    <div class="result-orbit" aria-hidden="true">{{ icon('orbit') }}</div>
+    <div id="result-content" aria-live="polite"><p id="result-kicker" class="eyebrow">AWAITING MEASUREMENTS</p><h2 id="result-heading">What does the<br>signal suggest?</h2><p id="result-explanation">Add an observation’s measurements and let the trained model classify its patterns.</p><div id="score-result" hidden><div class="score-caption"><span>Class-1 model score</span><strong id="score-number"></strong></div><div id="score-meter" class="score-track" role="progressbar" aria-label="Class-1 model score" aria-valuemin="0" aria-valuemax="100"><span></span></div><div class="score-scale"><span>0 · False Positive</span><span>1 · Planet-like</span></div><p id="imputed-note" class="small-note"></p><p id="prediction-source" class="small-note"></p></div></div>
+    <div class="science-callout">{{ icon('spark') }}<p>A model score is not a scientifically verified probability that a planet exists. Planet-like includes candidate and confirmed training labels; this result does not confirm a discovery.</p></div>
+    <a class="text-link" href="{{ url_for('frontend.model') }}">Understand the model {{ icon('arrow') }}</a>
+  </aside>
+</div>
+{% endblock %}

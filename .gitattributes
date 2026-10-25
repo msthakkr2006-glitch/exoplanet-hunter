@@ -1,0 +1,6 @@
+# Preserve existing file bytes across clones. Tests verify approved asset hashes.
+* -text
+
+*.png binary
+*.jpg binary
+*.joblib binary
