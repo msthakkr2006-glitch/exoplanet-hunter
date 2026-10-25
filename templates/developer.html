@@ -1,0 +1,43 @@
+{# Contact configuration: edit a URL here, or use an empty string to hide that option. #}
+{% set developer_contacts = [
+  ('github', 'GitHub', 'https://github.com/msthakkr2006-glitch'),
+  ('linkedin', 'LinkedIn', 'https://www.linkedin.com/in/mohak-thakkar-65a7852b0/'),
+  ('instagram', 'Instagram', 'https://www.instagram.com/mohak__0o?obrf=bWVxaDFqdGFxbHVz'),
+  ('email', 'Email', 'mailto:msthakkr2006@gmail.com')
+] %}
+{% macro contact_icon(platform) -%}
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{% if platform == 'github' %}<path d="M9 19c-4 1-4-2-6-2m12 5v-4a3.5 3.5 0 0 0-1-2.7c3.3-.4 6.7-1.6 6.7-7.3a5.7 5.7 0 0 0-1.5-4 5.3 5.3 0 0 0-.1-4S17.9.6 15 2a14 14 0 0 0-6 0C6.1.6 4.9 1 4.9 1a5.3 5.3 0 0 0-.1 4 5.7 5.7 0 0 0-1.5 4c0 5.7 3.4 6.9 6.7 7.3A3.5 3.5 0 0 0 9 19v3"/>
+{% elif platform == 'linkedin' %}<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10v7M11 17v-7m0 3a3 3 0 0 1 6 0v4"/><circle cx="7.5" cy="7" r=".6" fill="currentColor"/>
+{% elif platform == 'instagram' %}<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>
+{% elif platform == 'email' %}<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>{% endif %}
+</svg>
+{%- endmacro %}
+<section class="developer-section" aria-labelledby="developer-heading">
+  <header class="developer-heading"><p class="eyebrow">07 / THE DEVELOPER</p><h2 id="developer-heading">The Human Behind the Machine.</h2></header>
+  <div class="developer-layout">
+    <div class="developer-photo-reveal" data-developer-reveal>
+      <figure class="developer-polaroid">
+        <img src="{{ url_for('static', filename='images/mohak.jpg') }}" alt="A candid photograph of Mohak, the developer of Exoplanet Hunter." width="690" height="1000" loading="lazy" decoding="async">
+        <figcaption>occasionally touches grass.</figcaption>
+      </figure>
+    </div>
+    <div class="developer-biography" data-developer-reveal>
+      <h3>Hi, I'm Mohak.</h3>
+      <p>I'm a Computer Science student interested in machine learning, data science, and building things that seem like good ideas at 2 AM.</p>
+      <p>Apart from programming, I've always been fascinated by outer space, astronomy, and cosmology. There's something about the sheer scale of the universe, distant galaxies, black holes, and the possibility of worlds beyond our own that I find incredibly interesting.</p>
+      <p>I enjoy experimenting with technology, learning how things work, and turning random ideas into actual projects.</p>
+      <p>Exoplanet Hunter is where two of my biggest interests came together: machine learning and astronomy. What started as a project using NASA's Kepler dataset eventually turned into an entire website dedicated to exploring distant worlds.</p>
+      <p>I'm still learning, still experimenting, and probably already thinking about what to build next.</p>
+      <p class="developer-location">{{ icon('orbit') }}<span>Based on Earth. For now.</span></p>
+    </div>
+  </div>
+</section>
+<section class="developer-contact" aria-labelledby="contact-heading" data-developer-reveal>
+  <div class="developer-contact-heading"><h2 id="contact-heading">Find Me on Earth.</h2><p>Have a question, a project idea, or just want to say hello?</p></div>
+  <div class="developer-contact-links">
+    {% for platform, label, url in developer_contacts if url %}
+    <a href="{{ url }}"{% if platform != 'email' %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ contact_icon(platform) }}<span>{{ label }}</span><span class="developer-contact-arrow" aria-hidden="true">↗</span>{% if platform != 'email' %}<span class="sr-only"> (opens in a new tab)</span>{% endif %}</a>
+    {% endfor %}
+  </div>
+</section>

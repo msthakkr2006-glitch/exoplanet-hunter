@@ -21,3 +21,29 @@
   }
   dataRetry.addEventListener('click',loadData);modelRetry.addEventListener('click',loadModel);loadData();loadModel();
 })();
+
+/* Reveal the personal chapter once, with a fully visible no-script fallback. */
+(() => {
+  'use strict';
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const elements = [...document.querySelectorAll('[data-developer-reveal]')];
+  if (motion.matches || !('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('developer-pending');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold: .08});
+  elements.forEach(element => {
+    if (element.getBoundingClientRect().top > innerHeight) element.classList.add('developer-pending');
+    observer.observe(element);
+  });
+  motion.addEventListener('change', event => {
+    if (event.matches) {
+      observer.disconnect();
+      elements.forEach(element => element.classList.remove('developer-pending'));
+    }
+  });
+})();

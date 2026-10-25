@@ -1,0 +1,51 @@
+/* The personal chapter only; existing project sections retain their styles. */
+.developer-section { margin-top: 72px; padding-top: 64px; border-top: 1px solid var(--border); }
+.developer-heading { margin-bottom: 52px; }
+.developer-heading .eyebrow { font-size: 9px; margin-bottom: 18px; }
+.developer-heading h2 { font-size: clamp(32px, 3.1vw, 44px); line-height: 1.2; }
+.developer-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(42px, 7vw, 100px); align-items: center; }
+.developer-photo-reveal { padding: 12px; }
+.developer-polaroid { max-width: 352px; margin-inline: auto; padding: 12px 12px 0; background: #e8e1d5; color: #4c4943; transform: rotate(-2deg); box-shadow: 0 18px 46px #0006; transition: transform .4s ease, box-shadow .4s ease; }
+.developer-polaroid img { display: block; width: 100%; height: auto; background: #272723; }
+.developer-polaroid figcaption { text-align: center; font: italic 16px/1.5 var(--serif); padding: 21px 6px 23px; }
+.developer-biography h3 { font: 34px/1.2 var(--serif); letter-spacing: -.025em; margin-bottom: 26px; }
+.developer-biography > p { color: var(--muted); font-size: 14px; line-height: 1.95; margin-bottom: 18px; }
+.developer-biography .developer-location { display: flex; align-items: center; gap: 12px; margin: 29px 0 0; color: #b6cbd6; font-size: 11px; letter-spacing: .035em; }
+.developer-location .icon { width: 21px; height: 21px; color: var(--accent); }
+.developer-contact { margin-top: 78px; padding-top: 38px; border-top: 1px solid var(--border); }
+.developer-contact-heading h2 { font-size: 30px; margin-bottom: 16px; }
+.developer-contact-heading p { font-size: 13px; color: var(--muted); }
+.developer-contact-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 30px; }
+.developer-contact-links a { display: flex; align-items: center; gap: 14px; min-height: 65px; padding: 18px 21px; border: 1px solid var(--border); border-radius: 4px; background: #10172055; font-size: 12px; transition: background .2s, border-color .2s, transform .2s; }
+.developer-contact-links .icon { width: 19px; height: 19px; color: #9eb9c9; }
+.developer-contact-arrow { margin-left: auto; color: #7896aa; font-size: 16px; }
+.developer-contact-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; background: #16212c; }
+[data-developer-reveal] { transition: opacity .65s ease, transform .65s ease; }
+[data-developer-reveal].developer-pending { opacity: 0; transform: translateY(14px); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .developer-polaroid:hover { transform: rotate(-.75deg) translateY(-3px); box-shadow: 0 22px 48px #0007; }
+  .developer-contact-links a:hover { background: #15212b; border-color: #75b8dc65; transform: translateY(-2px); }
+}
+@media (max-width: 900px) {
+  .developer-layout { gap: 36px; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .developer-biography > p { font-size: 13px; }
+  .developer-contact-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .developer-section { margin-top: 35px; padding-top: 38px; }
+  .developer-heading { margin-bottom: 34px; }
+  .developer-heading h2 { font-size: 34px; max-width: 340px; }
+  .developer-layout { grid-template-columns: minmax(0, 1fr); gap: 38px; }
+  .developer-polaroid { max-width: 278px; padding: 10px 10px 0; }
+  .developer-polaroid figcaption { font-size: 15px; padding: 17px 4px 19px; }
+  .developer-biography h3 { font-size: 31px; margin-bottom: 22px; }
+  .developer-biography > p { font-size: 14px; line-height: 1.9; }
+  .developer-contact { margin-top: 45px; padding-top: 32px; }
+  .developer-contact-heading h2 { font-size: 29px; }
+  .developer-contact-links { gap: 10px; margin-top: 25px; }
+  .developer-contact-links a { gap: 10px; padding: 15px 12px; min-height: 60px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-developer-reveal], [data-developer-reveal].developer-pending { opacity: 1; transform: none; transition: none; }
+  .developer-polaroid, .developer-contact-links a { transition: none; }
+}
